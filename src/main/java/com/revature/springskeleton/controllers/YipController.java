@@ -18,10 +18,7 @@ public class YipController {
     private YipRepository yip;
 
     @GetMapping("/")
-//    public List<YipMessage> yipFinder() {
-//        return this.yip.findAll();
-//    }
-    public String yipFinder() {
-        return "Heroku sucks on monkey balls";
+    public List<YipMessage> yipFinder() {
+        return this.yip.findAll();
     }
 }
