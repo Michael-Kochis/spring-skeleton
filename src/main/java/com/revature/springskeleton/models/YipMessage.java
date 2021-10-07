@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\'yipyip\'")
+@Table(name = "yipyip")
 public class YipMessage {
     @Id
     @Column(name="id")
