@@ -17,7 +17,6 @@ public class YipController {
     @Autowired
     private YipRepository yip;
 
-
     @GetMapping("/")
     public List<YipMessage> yipFinder() {
         System.out.println(this.yip.findAll());
