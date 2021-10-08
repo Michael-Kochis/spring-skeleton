@@ -51,7 +51,7 @@ public class UserController {
         if (user.getEmail() != null && !user.getEmail().equals(""))
             neoUser.setEmail(user.getEmail());
 
-        return ResponseEntity.ok(this.users.save(oldUser));
+        return ResponseEntity.ok(this.users.save(neoUser));
     }
 
     @PostMapping("/")
