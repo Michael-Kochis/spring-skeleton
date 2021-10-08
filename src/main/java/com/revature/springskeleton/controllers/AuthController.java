@@ -17,8 +17,11 @@ public class AuthController {
     @PostMapping("/login")
     public SiteUser loginUser(@RequestBody SiteUser testUser) {
         SiteUser checkVs = users.findByUsername(testUser.getUsername());
-
-        return checkVs;
+        if ( PasswordUtils.isMatch(testUser.getPassword(), checkVs.getPassword()) ) {
+            return checkVs;
+        } else {
+            return null;
+        }
     }
 
     @PostMapping("/register")
