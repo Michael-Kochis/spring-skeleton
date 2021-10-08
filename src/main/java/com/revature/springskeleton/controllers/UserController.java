@@ -12,12 +12,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserController {
     @Autowired
     private UserRepository users;
 
-    @GetMapping("/")
+    @GetMapping("/users")
     public List<SiteUser> findAll() {
         return this.users.findAll();
     }
