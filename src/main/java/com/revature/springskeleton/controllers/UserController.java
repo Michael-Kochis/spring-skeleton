@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.ResourceAccessException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -36,24 +38,38 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<SiteUser> updateUser(@PathVariable(value = "id") Long userID,
         @RequestBody SiteUser user) throws ResourceNotFoundException {
-        SiteUser oldUser = users.findById(userID)
+        SiteUser neoUser = users.findById(userID)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Employee not found for ID: " + userID)
                 );
         if (user.getUsername() != null && !user.getUsername().equals(""))
-            oldUser.setUsername(user.getUsername());
+            neoUser.setUsername(user.getUsername());
         if (user.getFirstName() != null && !user.getFirstName().equals(""))
-            oldUser.setFirstName(user.getFirstName());
+            neoUser.setFirstName(user.getFirstName());
         if (user.getLastName() != null && !user.getLastName().equals(""))
-            oldUser.setLastName(user.getLastName());
+            neoUser.setLastName(user.getLastName());
         if (user.getEmail() != null && !user.getEmail().equals(""))
-            oldUser.setEmail(user.getEmail());
+            neoUser.setEmail(user.getEmail());
 
         return ResponseEntity.ok(this.users.save(oldUser));
     }
 
-    @PutMapping("/")
+    @PostMapping("/")
     public SiteUser makeUser(@RequestBody SiteUser neoUser) {
         return this.users.save(neoUser);
+    }
+    @DeleteMapping("/{id}")
+    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userID)
+            throws ResourceNotFoundException {
+        SiteUser oldUser = users.findById(userID)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Employee not found for ID: " + userID)
+                );
+        this.users.delete(oldUser);
+
+        Map<String,Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+
+        return response;
     }
 }
