@@ -3,10 +3,8 @@ package com.revature.springskeleton.controllers;
 import com.revature.springskeleton.models.SiteUser;
 import com.revature.springskeleton.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +18,18 @@ public class UserController {
     @GetMapping("/users")
     public List<SiteUser> findAll() {
         return this.users.findAll();
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<SiteUser> getUserByID(@PathVariable(value="id") Long userID) throws Exception {
+        SiteUser user = users.findById(userID)
+                .orElseThrow(
+                        () -> new Exception("Employee not found for ID: " + userID));
+        return ResponseEntity.ok().body(user);
+    }
+
+    @PostMapping("/users")
+    public SiteUser makeUser(@RequestBody SiteUser neoUser) {
+        return this.users.save(neoUser);
     }
 }
