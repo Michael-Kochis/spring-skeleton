@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<SiteUser, Long> {
-    public SiteUser findByUsername(String target) {
+    public default SiteUser findByUsername(String target) {
         SiteUser sample = new SiteUser();
         sample.setUsername(target);
 
