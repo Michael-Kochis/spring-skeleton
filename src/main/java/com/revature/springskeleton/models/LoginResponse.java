@@ -6,8 +6,9 @@ public class LoginResponse {
     public String token;
 
     public LoginResponse(SiteUser model) {
+        String tokenSecret = System.getenv("TOKEN_SECRET")
         this.message = "Welcome, " + model.getUsername();
         this.user = model;
-        this.token = "chocolate brownie";
+        this.token = tokenSecret;
     }
 }
