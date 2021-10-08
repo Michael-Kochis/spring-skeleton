@@ -13,8 +13,15 @@ public class AuthController {
     @Autowired
     private UserRepository users;
 
+    @PostMapping("/login")
+    public SiteUser loginUser(@RequestBody SiteUser testUser) {
+        SiteUser checkVs = users.findByUsername(testUser.getUsername());
+
+        return this.users.save(checkVs);
+    }
+
     @PostMapping("/register")
-    public SiteUser makeUser(@RequestBody SiteUser neoUser) {
+    public SiteUser registerUser(@RequestBody SiteUser neoUser) {
         neoUser.setPassword(PasswordUtils.encrypt(neoUser.getPassword()) );
         return this.users.save(neoUser);
     }
