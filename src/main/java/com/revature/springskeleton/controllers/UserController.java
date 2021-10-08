@@ -3,6 +3,7 @@ package com.revature.springskeleton.controllers;
 import com.revature.springskeleton.exceptions.ResourceNotFoundException;
 import com.revature.springskeleton.models.SiteUser;
 import com.revature.springskeleton.repositories.UserRepository;
+import com.revature.springskeleton.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +69,7 @@ public class UserController {
         this.users.delete(oldUser);
 
         Map<String,Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
+        response.put(PasswordUtils.encrypt("deleted"), Boolean.TRUE);
 
         return response;
     }
