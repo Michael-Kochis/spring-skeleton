@@ -1,5 +1,6 @@
 package com.revature.springskeleton.controllers;
 
+import com.revature.springskeleton.models.LoginResponse;
 import com.revature.springskeleton.models.SiteUser;
 import com.revature.springskeleton.repositories.UserRepository;
 import com.revature.springskeleton.utils.PasswordUtils;
@@ -15,10 +16,10 @@ public class AuthController {
     private UserRepository users;
 
     @PostMapping("/login")
-    public SiteUser loginUser(@RequestBody SiteUser testUser) {
+    public LoginResponse loginUser(@RequestBody SiteUser testUser) {
         SiteUser checkVs = users.findByUsername(testUser.getUsername());
         if ( PasswordUtils.isMatch(testUser.getPassword(), checkVs.getPassword()) ) {
-            return checkVs;
+            return new LoginResponse(checkVs);
         } else {
             return null;
         }
