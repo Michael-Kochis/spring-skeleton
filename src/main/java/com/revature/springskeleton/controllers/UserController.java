@@ -52,7 +52,7 @@ public class UserController {
         return ResponseEntity.ok(this.users.save(oldUser));
     }
 
-    @PostMapping("/")
+    @PutMapping("/")
     public SiteUser makeUser(@RequestBody SiteUser neoUser) {
         return this.users.save(neoUser);
     }
