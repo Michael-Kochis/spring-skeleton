@@ -10,25 +10,26 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserRepository users;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     public List<SiteUser> findAll() {
         return this.users.findAll();
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<SiteUser> getUserByID(@PathVariable(value="id") Long userID) throws Exception {
+    @GetMapping("/{id}")
+    public ResponseEntity<SiteUser> getUserByID(@PathVariable(value="id") Long userID)
+            throws Exception {
         SiteUser user = users.findById(userID)
                 .orElseThrow(
                         () -> new Exception("Employee not found for ID: " + userID));
         return ResponseEntity.ok().body(user);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     public SiteUser makeUser(@RequestBody SiteUser neoUser) {
         return this.users.save(neoUser);
     }
