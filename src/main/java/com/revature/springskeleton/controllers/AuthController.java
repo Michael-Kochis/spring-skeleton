@@ -17,7 +17,7 @@ public class AuthController {
     public SiteUser loginUser(@RequestBody SiteUser testUser) {
         SiteUser checkVs = users.findByUsername(testUser.getUsername());
 
-        return this.users.save(checkVs);
+        return checkVs;
     }
 
     @PostMapping("/register")

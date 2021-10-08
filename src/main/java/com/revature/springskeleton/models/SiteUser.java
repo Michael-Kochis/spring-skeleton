@@ -3,10 +3,7 @@ package com.revature.springskeleton.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="users")
@@ -16,7 +13,7 @@ public class SiteUser {
     @Getter @Setter
     private long userID;
 
-    @Column(name="username")
+    @Column(name="username", unique = true)
     @Getter  @Setter
     private String username;
 
