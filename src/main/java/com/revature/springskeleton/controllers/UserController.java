@@ -45,6 +45,9 @@ public class UserController {
                 );
         if (user.getUsername() != null && !user.getUsername().equals(""))
             neoUser.setUsername(user.getUsername());
+        if (user.getPassword() != null && !user.getPassword().equals("")
+            && !user.getPassword().equals(neoUser.getPassword()) )
+            neoUser.setPassword(PasswordUtils.encrypt(user.getPassword()) );
         if (user.getFirstName() != null && !user.getFirstName().equals(""))
             neoUser.setFirstName(user.getFirstName());
         if (user.getLastName() != null && !user.getLastName().equals(""))
@@ -57,8 +60,10 @@ public class UserController {
 
     @PostMapping("/")
     public SiteUser makeUser(@RequestBody SiteUser neoUser) {
+        neoUser.setPassword(PasswordUtils.encrypt(neoUser.getPassword()) );
         return this.users.save(neoUser);
     }
+
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userID)
             throws ResourceNotFoundException {
@@ -69,7 +74,7 @@ public class UserController {
         this.users.delete(oldUser);
 
         Map<String,Boolean> response = new HashMap<>();
-        response.put(PasswordUtils.encrypt("deleted"), Boolean.TRUE);
+        response.put("deleted", Boolean.TRUE);
 
         return response;
     }
