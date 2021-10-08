@@ -29,8 +29,7 @@ public class JWTTokenUtils {
                 .setIssuer("Team Dungeon Keepers")
                 .claim("ID", toEncrypt.getUserID())
                 .claim("username", toEncrypt.getUsername())
-                .signWith(signatureAlgorithm, signingKey)
-                .compact;
+                .signWith(signatureAlgorithm, signingKey);
 
         long expMilli = nowMillis + 9100000;
         Date exp = new Date(expMilli);
